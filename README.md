@@ -16,7 +16,7 @@ The Agentic RAG dynamically routes user queries to the most relevant sources—l
 3. **Response Generation**: Uses retrieved information to generate a coherent answer.
 4. **Transparency Layer**: Explains why a particular source was chosen.
 
-## 🧭  Tools Used
+## 🛠️  Tools Used
 1. **LangChain**: Framework for building context-aware agents and chaining LLM calls with external tools..
 2. **Streamlit**: Interactive frontend for user input and real-time response visualization.
 3. **FAISS**: Efficient similarity search for retrieving relevant local documents..
@@ -25,7 +25,7 @@ The Agentic RAG dynamically routes user queries to the most relevant sources—l
 6. **Hugging Face**: Access to pre-trained models and tokenizers for NLP tasks and experimentation.
 
 
-## 🛠️  Architecture
+## 🧭  Architecture
 <img src="AR%20architecture.png" width="420px" height="420px" align="left">
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
