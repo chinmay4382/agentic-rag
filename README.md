@@ -1,4 +1,4 @@
-# agentic-rag
+# AGENTIC-RAG
 The Agentic RAG dynamically routes user queries to the most relevant sources—local documents, web search, or both—based on the query context by providing transparency into the decision-making process to help users.
 
 ## 🔍 Features
@@ -21,12 +21,14 @@ The Agentic RAG dynamically routes user queries to the most relevant sources—l
 ```bash
 git clone https://github.com/chinmay4382/agentic-rag.git
 cd agentic-rag
-python3 -n venv venv
+python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
+```
+
 
 ## 🧪 Usage
 
 ```bash
 streamlit run main.py
-
+```
