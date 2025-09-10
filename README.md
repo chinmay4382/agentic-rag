@@ -16,6 +16,19 @@ The Agentic RAG dynamically routes user queries to the most relevant sources—l
 3. **Response Generation**: Uses retrieved information to generate a coherent answer.
 4. **Transparency Layer**: Explains why a particular source was chosen.
 
+## 🛠️  Tools Used
+1. **LangChain**: Framework for building context-aware agents and chaining LLM calls with external tools..
+2. **Streamlit**: Interactive frontend for user input and real-time response visualization.
+3. **FAISS**: Efficient similarity search for retrieving relevant local documents..
+4. **Groq’s Llama 3.1-8B**: High-performance language model for generating accurate and context-rich responses by META.
+5. **Serper**: Fast and reliable web search API for retrieving up-to-date information from the internet.
+6. **Hugging Face**: Access to pre-trained models and tokenizers for NLP tasks and experimentation.
+
+
+
+
+
+
 ## 🚀 Installation
 
 ```bash
