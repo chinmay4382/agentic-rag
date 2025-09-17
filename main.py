@@ -6,6 +6,8 @@ from question_generation import generate_dynamic_questions
 import time
 from pipelines import traditional_rag_query_enhanced, agentic_rag_query_enhanced
 from visualization import create_processing_steps_visual, create_pipeline_visualization
+from header import *
+
 
 if 'initialized' not in st.session_state:
     st.session_state.initialized = False
@@ -24,6 +26,9 @@ def main():
     # Header
     st.markdown('<div class="main-header">🤖 Enhanced Agentic RAG Demo</div>', unsafe_allow_html=True)
     st.markdown('<div style="text-align: center; font-size: 1.2rem; color: #666; margin-bottom: 2rem;">Advanced AI-Powered Information Retrieval with PDF Upload & Dynamic Training</div>', unsafe_allow_html=True)
+    get_traditional_rags_desc()
+    get_agentic_rags_desc()
+    get_steps()
     
     # Sidebar
     with st.sidebar:
