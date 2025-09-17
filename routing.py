@@ -7,32 +7,65 @@ from utils import get_api_keys
 def check_local_knowledge_enhanced(llm, query: str, context: str) -> dict:
     """Enhanced router with detailed reasoning and confidence scoring"""
     
-    router_prompt = f"""You are an advanced query router for an Agentic RAG system. You must be VERY CAREFUL and PRECISE about routing decisions.
+    router_promot = f"""You are an advanced query router for an Agentic RAG system. Be PRECISE and CONSISTENT.
 
     Query: "{query}"
     Available Local Context: {context[:800]}...
-
-    CRITICAL ANALYSIS REQUIREMENTS:
-    1. EXACT Content Match: Does the local context contain the EXACT information needed to answer this specific query? Not just related topics, but the precise answer.
-    2. Completeness Check: Can you provide a COMPLETE answer using ONLY the local context?
-    3. Information Specificity: Is the query asking for specific details, personal information, or data that must be explicitly present?
-    4. Temporal Requirements: Does the query need current/real-time information?
-
-    STRICT Routing Decision Rules:
-    - LOCAL: ONLY if the context contains the EXACT answer to the query
-    - WEB: Current events, real-time data, personal information not in context, specific details absent from context
-    - HYBRID: Query needs both foundational knowledge (in context) AND current/additional information
-
-    Be CONSERVATIVE: If you're not 100% certain the local context can fully answer the query, route to WEB or HYBRID.
-
-    Provide your analysis in this format:
+    
+    CRITICAL ANALYSIS:
+    1) EXACT vs PARTIAL: Identify exact lines in the local context that answer parts of the query. If none, say so.
+    2) COMPLETENESS: Estimate how much of the final answer is supported ONLY by local context (0.0–1.0).
+    3) TEMPORAL NEED: Does the query need current/real-time info or a specific date?
+    4) RISK: Would answering locally risk being outdated, incomplete, or misleading?
+    
+    ROUTING RULES:
+    - LOCAL: Only if local coverage ≥ 0.9 AND temporal need = NO.
+    - HYBRID (preferred over WEB when local is useful but incomplete): if ANY:
+      a) local coverage between 0.3 and 0.9
+      b) temporal need = YES AND context provides entity/process/policy grounding
+      c) query requires combining local specifics (schemas, policies, IDs) with external/current facts
+    - WEB: if local coverage < 0.3 AND context match < 0.3, or question is personal/current with no local support.
+    
+    FORMAT (return exactly):
     Route: LOCAL, WEB, or HYBRID
     Confidence: HIGH/MEDIUM/LOW
-    Reasoning: [Explain WHY you chose this route - be specific about what information is/isn't available]
-    Context_Match: [0.0-1.0 score for how well context matches the SPECIFIC query]
-    Temporal_Need: [YES/NO - does query need current information]
-
+    Reasoning: [1–3 sentences: cite what is present and what is missing]
+    Evidence_Spans: ["exact quote 1", "exact quote 2"]
+    Context_Match: 0.0–1.0
+    Local_Coverage: 0.0–1.0
+    Temporal_Need: YES/NO
+    
     Decision:"""
+
+
+
+    
+    # router_prompt = f"""You are an advanced query router for an Agentic RAG system. You must be VERY CAREFUL and PRECISE about routing decisions.
+
+    # Query: "{query}"
+    # Available Local Context: {context[:800]}...
+
+    # CRITICAL ANALYSIS REQUIREMENTS:
+    # 1. EXACT Content Match: Does the local context contain the EXACT information needed to answer this specific query? Not just related topics, but the precise answer.
+    # 2. Completeness Check: Can you provide a COMPLETE answer using ONLY the local context?
+    # 3. Information Specificity: Is the query asking for specific details, personal information, or data that must be explicitly present?
+    # 4. Temporal Requirements: Does the query need current/real-time information?
+
+    # STRICT Routing Decision Rules:
+    # - LOCAL: ONLY if the context contains the EXACT answer to the query
+    # - WEB: Current events, real-time data, personal information not in context, specific details absent from context
+    # - HYBRID: Query needs both foundational knowledge (in context) AND also used web to fetch current/additional information
+
+    # Be CONSERVATIVE: If you're not 100% certain the local context can fully answer the query, route to WEB or HYBRID.
+
+    # Provide your analysis in this format:
+    # Route: LOCAL, WEB, or HYBRID
+    # Confidence: HIGH/MEDIUM/LOW
+    # Reasoning: [Explain WHY you chose this route - be specific about what information is/isn't available]
+    # Context_Match: [0.0-1.0 score for how well context matches the SPECIFIC query]
+    # Temporal_Need: [YES/NO - does query need current information]
+
+    # Decision:"""
     
     try:
         response = llm.invoke(router_prompt)
