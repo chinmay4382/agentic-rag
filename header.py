@@ -1,4 +1,4 @@
-import stremlit as st
+import streamlit as st
 
 def get_traditional_rags_desc():
    
