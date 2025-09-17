@@ -1,0 +1,22 @@
+name: Create .env File
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  create-env:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create .env file
+        run: |
+          echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" >> .env
+          echo "SERPER_API_KEY=${{ secrets.SERPER_API_KEY }}" >> .env
+          echo "SERPER_API_KEY=${{ secrets.SERPER_API_KEY }}" >> .env
+
+      - name: Verify .env file
+        run: cat .env
