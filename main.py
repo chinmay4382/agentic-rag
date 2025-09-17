@@ -27,6 +27,14 @@ def main():
     get_traditional_rags_desc()
     get_agentic_rags_desc()
     get_steps()
+
+    if not st.session_state.components_loaded:
+        llm, embeddings = initialize_base_components()
+        if llm and embeddings:
+            st.session_state.llm = llm
+            st.session_state.embeddings = embeddings
+            st.session_state.components_loaded = True
+
     
     # Sidebar
     with st.sidebar:
