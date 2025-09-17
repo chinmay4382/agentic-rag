@@ -7,7 +7,7 @@ langchain-groq>=0.1.0              # Groq LLM integration
 langchain-community>=0.1.0         # Community extensions
 langchain-huggingface>=0.1.0       # HuggingFace integration
 langchain-text-splitters>=0.1.0    # Text processing
-
+langchain-google-genai>=2.1.10      # Google GenAI integration
 # ===== VECTOR DATABASE =====
 faiss-cpu>=1.7.4                   # Facebook AI Similarity Search
 sentence-transformers>=2.3.0       # Text embeddings
