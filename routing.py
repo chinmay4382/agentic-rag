@@ -7,7 +7,7 @@ from utils import get_api_keys
 def check_local_knowledge_enhanced(llm, query: str, context: str) -> dict:
     """Enhanced router with detailed reasoning and confidence scoring"""
     
-    router_promot = f"""You are an advanced query router for an Agentic RAG system. Be PRECISE and CONSISTENT.
+    router_prompt = f"""You are an advanced query router for an Agentic RAG system. Be PRECISE and CONSISTENT.
 
     Query: "{query}"
     Available Local Context: {context[:800]}...
