@@ -34,6 +34,7 @@ def main():
             st.session_state.llm = llm
             st.session_state.embeddings = embeddings
             st.session_state.components_loaded = True
+            st.session_state.vector_db = create_default_knowledge_base(st.session_state.embeddings) 
 
     
     # Sidebar
