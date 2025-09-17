@@ -21,6 +21,7 @@ def apply_custom_css():
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 2rem;
+            margin-top: 5rem;
         }
         .sub-header {
             font-size: 1.5rem;
