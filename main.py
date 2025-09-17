@@ -130,7 +130,8 @@ def main():
 
     if process_query and query:
         st.markdown("---")
-        
+        if not st.session_state.vector_db :
+            st.session_state.vector_db = create_default_knowledge_base(st.session_state.embeddings)           
         # Process both systems
         with st.spinner("Processing with both RAG systems..."):
             traditional_result = traditional_rag_query_enhanced(
