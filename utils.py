@@ -86,5 +86,5 @@ def get_api_keys():
     groq_key = os.getenv("GROQ_API_KEY", "")
     serper_key = os.getenv("SERPER_API_KEY", "")
     gemini_key = os.getenv("GEMINI_API_KEY", "")
-    
+    st.balloons
     return groq_key, serper_key, gemini_key

@@ -8,6 +8,7 @@ on:
 jobs:
   create-env:
     runs-on: ubuntu-latest
+    environment: PROD
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
