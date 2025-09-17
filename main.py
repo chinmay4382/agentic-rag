@@ -21,11 +21,9 @@ if 'initialized' not in st.session_state:
 
 def main():
     """Enhanced main Streamlit application"""
-    
     apply_custom_css()
     # Header
-    st.markdown('<div class="main-header">🤖 Agentic RAG : Combines the power of AI and SEARCH</div>', unsafe_allow_html=True)
-    st.markdown('<div style="text-align: center; font-size: 1.2rem; color: #666; margin-bottom: 2rem;">Advanced AI-Powered Information Retrieval with PDF Upload & Dynamic Training</div>', unsafe_allow_html=True)
+    st.markdown('<div class="main-header">🤖 Agentic RAG : AI and SEARCH</div>', unsafe_allow_html=True)
     get_traditional_rags_desc()
     get_agentic_rags_desc()
     get_steps()
