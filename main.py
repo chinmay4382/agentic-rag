@@ -1,7 +1,7 @@
 import streamlit as st
 from utils import get_api_keys, initialize_base_components,FAISS
 from css import apply_custom_css
-from knowledge_base import process_uploaded_pdf
+from knowledge_base import *
 from question_generation import generate_dynamic_questions
 import time
 from pipelines import traditional_rag_query_enhanced, agentic_rag_query_enhanced
