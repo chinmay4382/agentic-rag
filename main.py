@@ -39,19 +39,7 @@ def main():
     
     # Sidebar
     with st.sidebar:
-        with st.expander("### 🔑 API Configuration"):
-            # API Keys Status Section            
-            # Check API key availability from environment
-            groq_key, serper_key, gemini_key = get_api_keys()
-            
-            if groq_key and serper_key:
-                st.success("✅ API keys configured from environment")
-                st.markdown("**🟢 Status:** Ready to use all features")
-            else:
-                st.error("❌ API keys not found in environment variables")
-                st.markdown("**🔴 Status:** Please configure environment variables")
-                st.info("💡 Required: GROQ_API_KEY, SERPER_API_KEY, GEMINI_API_KEY")
-        
+                
         with st.expander("### 📄 Upload Documents"):
             uploaded_files = st.file_uploader(
                 "Upload PDF files to create custom knowledge base",
@@ -90,29 +78,41 @@ def main():
                         'local': local_q,
                         'web': web_q
                     }
-                    
-                    st.success(f"✅ Processed {len(uploaded_files)} files ({len(all_chunks)} chunks)")
-                    
-                else:
-                    st.error("❌ No valid text chunks extracted from uploaded PDFs.")   
-                time.sleep(3)
-                st.rerun()
+                    time.sleep(3)
+                    st.rerun()
 
-        with st.expander("🔧 System Architecture"):
-            st.markdown("""
-            **Traditional RAG:**
-            - ❌ Fixed local-only retrieval
-            - ❌ Basic similarity search
-            - ❌ Simple answer generation
-            - ❌ No intelligence or adaptation
+        with st.expander("#### 💬 Sample Questions"):
+            # st.markdown("#### 💬 Sample Questions")
+
+            if st.session_state.get('dynamic_questions'):
+                st.markdown("**🏠 Local Knowledge Queries:**")
+                for question in st.session_state.dynamic_questions['local']:
+                    if st.button(f"📚 {question}", key=f"local_{hash(question)}"):
+                        st.session_state.selected_query = question
+                
+                st.markdown("**🌐 Web Search Queries:**")
+                for question in st.session_state.dynamic_questions['web']:
+                    if st.button(f"🔍 {question}", key=f"web_{hash(question)}"):
+                        st.session_state.selected_query = question
+                        
+                        st.success(f"✅ Processed  files")
+                        
+                    else:
+                        st.error("❌ No valid text chunks extracted from uploaded PDFs.")   
+                    
+
+        # with st.expander("### 🔑 API Configuration"):
+        #     # API Keys Status Section            
+        #     # Check API key availability from environment
+        #     groq_key, serper_key, gemini_key = get_api_keys()
             
-            **Agentic RAG:**
-            - ✅ Intelligent routing system
-            - ✅ Advanced retrieval strategies
-            - ✅ Multi-source information fusion
-            - ✅ Context-aware processing
-            - ✅ Quality assessment & optimization
-            """)
+        #     if groq_key and serper_key:
+        #         st.success("✅ API keys configured from environment")
+        #         st.markdown("**🟢 Status:** Ready to use all features")
+        #     else:
+        #         st.error("❌ API keys not found in environment variables")
+        #         st.markdown("**🔴 Status:** Please configure environment variables")
+        #         st.info("💡 Required: GROQ_API_KEY, SERPER_API_KEY, GEMINI_API_KEY")
 
     st.markdown('<div class="sub-header">💬 Ask Your Question</div>', unsafe_allow_html=True)
     
