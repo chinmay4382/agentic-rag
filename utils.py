@@ -34,7 +34,7 @@ def initialize_base_components():
         # Initialize embeddings
         embeddings = HuggingFaceEmbeddings(
             model_name='sentence-transformers/all-mpnet-base-v2',
-            model_kwargs={'device': 'cpu'},
+            # model_kwargs={'device': 'cpu'}, #LangChain will auto-place it on CPU if no GPU is available.
             encode_kwargs={'normalize_embeddings': True}
         )
         
