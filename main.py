@@ -24,8 +24,7 @@ def main():
     apply_custom_css()
     # Header
     st.markdown('<div class="main-header">🤖 Agentic RAG : AI and SEARCH</div>', unsafe_allow_html=True)
-    get_traditional_rags_desc()
-    get_agentic_rags_desc()
+    
     get_steps()
 
     if not st.session_state.components_loaded:
@@ -95,12 +94,13 @@ def main():
                     if st.button(f"🔍 {question}", key=f"web_{hash(question)}"):
                         st.session_state.selected_query = question
                         
-                        st.success(f"✅ Processed  files")
+                        st.success(f"✅ Processed  files and created custom knowledge base with {len(all_chunks)} text chunks.")
                         
                     else:
                         st.error("❌ No valid text chunks extracted from uploaded PDFs.")   
                     
-
+        get_traditional_rags_desc()
+        get_agentic_rags_desc()
         # with st.expander("### 🔑 API Configuration"):
         #     # API Keys Status Section            
         #     # Check API key availability from environment
