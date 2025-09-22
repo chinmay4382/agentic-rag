@@ -39,46 +39,47 @@ def main():
     # Sidebar
     with st.sidebar:
                 
-        with st.expander("### 📄 Upload Documents"):
-            uploaded_files = st.file_uploader(
-                "Upload PDF files to create custom knowledge base",
-                type=['pdf'],
-                accept_multiple_files=True,
-                help="Upload PDF documents to train the RAG system on your content"
-            )
+        # with st.expander("### 📄 Upload Documents"):
+        st.markdown("### 📄 Upload Documents")
+        uploaded_files = st.file_uploader(
+            "Upload PDF files to create custom knowledge base",
+            type=['pdf'],
+            accept_multiple_files=True,
+            help="Upload PDF documents to train the RAG system on your content"
+        )
 
-            if uploaded_files and st.button("🚀 Process & Train", type="primary"):
-                with st.spinner("Processing uploaded documents..."):
-                    # Initialize base components if not already done
-                    if not st.session_state.components_loaded:
-                        llm, embeddings = initialize_base_components()
-                        if llm and embeddings:
-                            st.session_state.llm = llm
-                            st.session_state.embeddings = embeddings
-                            st.session_state.components_loaded = True
+        if uploaded_files and st.button("🚀 Process & Train", type="primary"):
+            with st.spinner("Processing uploaded documents..."):
+                # Initialize base components if not already done
+                if not st.session_state.components_loaded:
+                    llm, embeddings = initialize_base_components()
+                    if llm and embeddings:
+                        st.session_state.llm = llm
+                        st.session_state.embeddings = embeddings
+                        st.session_state.components_loaded = True
+            
+            # Process uploaded PDFs
+            all_chunks = []
+            for uploaded_file in uploaded_files:
+                st.write(f"Processing: {uploaded_file.name}")
+                vector_db, chunks = process_uploaded_pdf(uploaded_file, st.session_state.embeddings)
+                if chunks:
+                    all_chunks.extend(chunks)
+            
+            if all_chunks:
+                # Create combined vector database
+                st.session_state.vector_db = FAISS.from_documents(all_chunks, st.session_state.embeddings)
+                st.session_state.custom_docs_loaded = True
+                st.session_state.current_knowledge_base = "custom"
                 
-                # Process uploaded PDFs
-                all_chunks = []
-                for uploaded_file in uploaded_files:
-                    st.write(f"Processing: {uploaded_file.name}")
-                    vector_db, chunks = process_uploaded_pdf(uploaded_file, st.session_state.embeddings)
-                    if chunks:
-                        all_chunks.extend(chunks)
-                
-                if all_chunks:
-                    # Create combined vector database
-                    st.session_state.vector_db = FAISS.from_documents(all_chunks, st.session_state.embeddings)
-                    st.session_state.custom_docs_loaded = True
-                    st.session_state.current_knowledge_base = "custom"
-                    
-                    # Generate dynamic questions
-                    local_q, web_q = generate_dynamic_questions(all_chunks, st.session_state.llm)
-                    st.session_state.dynamic_questions = {
-                        'local': local_q,
-                        'web': web_q
-                    }
-                    time.sleep(3)
-                    st.rerun()
+                # Generate dynamic questions
+                local_q, web_q = generate_dynamic_questions(all_chunks, st.session_state.llm)
+                st.session_state.dynamic_questions = {
+                    'local': local_q,
+                    'web': web_q
+                }
+                time.sleep(3)
+                st.rerun()
 
         with st.expander("#### 💬 Sample Questions"):
             # st.markdown("#### 💬 Sample Questions")

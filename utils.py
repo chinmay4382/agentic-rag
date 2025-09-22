@@ -9,7 +9,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 
 
 
-
+@st.cache_resource
 def initialize_base_components():
     """Initialize base RAG components"""
     try:
