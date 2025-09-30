@@ -23,7 +23,7 @@ def main():
     """Enhanced main Streamlit application"""
     apply_custom_css()
     # Header
-    st.markdown('<div class="main-header">🤖 Agentic RAG : AI and SEARCH</div>', unsafe_allow_html=True)
+    st.markdown('<div class="main-header">🤖 Agentic RAG : AI and SEARCH (in development)</div>', unsafe_allow_html=True)
     
     get_steps()
 
@@ -95,11 +95,11 @@ def main():
                     if st.button(f"🔍 {question}", key=f"web_{hash(question)}"):
                         st.session_state.selected_query = question
                         
-                        st.success(f"✅ Processed  files and created custom knowledge base with {len(all_chunks)} text chunks.")
+                        st.success(f"✅ Processed  files and created custom knowledge base with text chunks.")
                         
                     else:
-                        st.error("❌ No valid text chunks extracted from uploaded PDFs.")   
-                    
+                        # st.error("❌ No valid text chunks extracted from uploaded PDFs.")   
+                        pass
         get_traditional_rags_desc()
         get_agentic_rags_desc()
         # with st.expander("### 🔑 API Configuration"):
