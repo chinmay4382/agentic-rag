@@ -6,6 +6,7 @@ from langchain_huggingface.embeddings import HuggingFaceEmbeddings
 from langchain_groq import ChatGroq
 from langchain.schema import Document
 from langchain_google_genai import ChatGoogleGenerativeAI
+from transformers import AutoModel, AutoTokenizer
 
 
 
@@ -32,11 +33,20 @@ def initialize_base_components():
         )
         
         # Initialize embeddings
+        # embeddings = HuggingFaceEmbeddings(
+        #     model_name='sentence-transformers/all-mpnet-base-v2',
+        #     # model_kwargs={'device': 'cpu'}, #LangChain will auto-place it on CPU if no GPU is available.
+        #     encode_kwargs={'normalize_embeddings': True}
+        # )
+
+        tokenizer = AutoTokenizer.from_pretrained("sentence-transformers/all-mpnet-base-v2")
+        model = AutoModel.from_pretrained("sentence-transformers/all-mpnet-base-v2", device_map="cpu")
+
         embeddings = HuggingFaceEmbeddings(
-            model_name='sentence-transformers/all-mpnet-base-v2',
-            # model_kwargs={'device': 'cpu'}, #LangChain will auto-place it on CPU if no GPU is available.
+            model=model,
+            tokenizer=tokenizer,
             encode_kwargs={'normalize_embeddings': True}
-        )
+)
         
         return llm, embeddings
         
