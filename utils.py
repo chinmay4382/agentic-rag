@@ -51,7 +51,7 @@ def initialize_base_components():
         return llm, embeddings
         
     except Exception as e:
-        st.error(f"Error initializing base components: {e}")
+        # st.error(f"Error initializing base components: {e}")
         return None, None       
     
     # llm = ChatGoogleGenerativeAI(

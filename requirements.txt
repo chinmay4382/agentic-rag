@@ -31,3 +31,5 @@ watchdog>=3.0.0                    # File watching (optional)
 streamlit-option-menu>=0.3.6       # Enhanced UI components (optional)
 
 transformers
+
+accelerate
